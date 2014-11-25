@@ -24,17 +24,15 @@ def newId():
     changeID = 0
 
 def isInvalid(source):
-    global invalidStringList
+    global invalidStringList, minSourceLength
+    if len(source) < minSourceLength:
+        return True
     for string in invalidStringList:
         if string in source:
             return True
     return False
 
-
 def internalInvalid(source):
-    global minSourceLength
-    if len(source) < minSourceLength:
-        return True
     if 'Privoxy' in source:
         return True
     return False
