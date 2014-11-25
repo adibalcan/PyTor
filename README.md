@@ -3,6 +3,11 @@ PyTor
 
 Python module for http requests by tor network
 
+Requirements
+=========
+tor
+privoxy
+
 Installation
 =========
 ATENTION: First install pip and git
