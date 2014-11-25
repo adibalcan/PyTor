@@ -39,7 +39,7 @@ def internalInvalid(source):
         return True
     return False
 
-#Conect to Tor by Privoxy
+#Connect to Tor by Privoxy
 proxies = {
                 'http': 'http://127.0.0.1:8118',
                 'https': 'https://127.0.0.1:8118'
