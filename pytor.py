@@ -26,7 +26,7 @@ def newId():
 def isInvalid(source):
     global invalidStringList
     for string in invalidStringList:
-        if 'One more step' in source:
+        if string in source:
             return True
     return False
 
