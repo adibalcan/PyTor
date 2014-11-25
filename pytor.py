@@ -8,7 +8,7 @@ from stem.control import Controller
 showIp = True
 maxRetry = 99
 maxRequestsPerIP = 0 # 0 means disabled
-
+password = ''
 
 requestsNumber = 0
 changeID = 0
@@ -16,7 +16,7 @@ changeID = 0
 def newId():
     global changeID
     with Controller.from_port(port = 9051) as controller:
-        controller.authenticate(password = 'test')
+        controller.authenticate(password = password)
         controller.signal(Signal.NEWNYM)
     time.sleep(3)
     changeID = 0
