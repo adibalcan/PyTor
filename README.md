@@ -1,13 +1,12 @@
 PyTor
 =========
 
-Python module for http requests by tor network
+Python module for http requests by tor network. PyTor change automatically IP address when a string marker is detected in response to a request.  
 
 Requirements
 =========
-tor,
-
-privoxy
+Tor, 
+Trivoxy 
 
 Installation
 =========
