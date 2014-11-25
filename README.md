@@ -31,15 +31,15 @@ Privoxy's main configuration file is already prepared for Tor, if you are using 
 
 Tor configuration
 =========
-Generate a hash password
+Generate a hash password 
 
 	tor --hash-password YOURPASSWORD
 
-Uncomment this line from /etc/tor/torrc
+Uncomment this line from /etc/tor/torrc 
 
 	ControlPort 9051
 
-Update hash generated above in /etc/tor/torrc
+Update hash generated above in /etc/tor/torrc 
 
 	HashedControlPassword 16:3C78EB9AB441234760C108BCC7F8CF3138FA14378C116ECD3E9C942E51
 
