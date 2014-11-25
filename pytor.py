@@ -9,12 +9,14 @@ showIp = True
 maxRetry = 99
 maxRequestsPerIP = 0 # 0 means disabled
 password = ''
+invalidStringList = []
+minSourceLength = 200
 
 requestsNumber = 0
 changeID = 0
 
 def newId():
-    global changeID
+    global changeID, password
     with Controller.from_port(port = 9051) as controller:
         controller.authenticate(password = password)
         controller.signal(Signal.NEWNYM)
@@ -22,15 +24,16 @@ def newId():
     changeID = 0
 
 def isInvalid(source):
-    if 'Sorry, you\'re not allowed to access this page.' in source:
-        return True
-    if 'One more step' in source:
-        return True        
+    global invalidStringList
+    for string in invalidStringList:
+        if 'One more step' in source:
+            return True
     return False
 
 
 def internalInvalid(source):
-    if len(source) < 200:
+    global minSourceLength
+    if len(source) < minSourceLength:
         return True
     if 'Privoxy' in source:
         return True
