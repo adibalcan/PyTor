@@ -6,7 +6,8 @@ Python module for http requests by tor network. PyTor change automatically IP ad
 Requirements
 =========
 Tor, 
-Trivoxy 
+
+Privoxy 
 
 Installation
 =========
