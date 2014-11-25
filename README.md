@@ -5,7 +5,7 @@ Python module for http requests by tor network
 
 Requirements
 =========
-tor
+tor,
 privoxy
 
 Installation
