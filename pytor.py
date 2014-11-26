@@ -80,7 +80,7 @@ def getSource(url):
     while retry == 0 or internalInvalid(responseText) or isInvalid(responseText):
         try:
             if showIp:
-                print('IP ', getIp())
+                print('IP address ', getIp())
             if url.endswith('.gz'):
                 r = requests.get(url, headers = headers, proxies = proxies, stream = True)
                 responseText = r.raw.read()

@@ -31,6 +31,9 @@ Usage
 	# Change the IP address if response is shorter then 200 chars
 	pytor.minSourceLength = 200 
 
+	# Show IP address at every request 
+	pytor.showIp = True
+
 	# Get source :)
 	print(pytor.getSource('http://thewebminer.com'))
 
