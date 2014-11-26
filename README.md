@@ -19,8 +19,19 @@ Usage
 =========
 	import pytor
 
-	pytor.password='YOURPASSWORD' # Use here password from tor configuration
-	pytor.invalidStringList = ['Sorry, you\'re not allowed to access this page.', 'One more step'] 
+	# Use here, password from tor configuration
+	pytor.password='YOURPASSWORD' 
+	
+	# Automatically change the IP address if one of those strings are met in http response
+	pytor.invalidStringList = ['Sorry, you\'re not allowed to access this page.', 'One more step']
+
+	# Change the IP address automatically after 100 requests
+	pytor.maxRequestsPerIP = 100 
+
+	# Change the IP address if response is shorter then 200 chars
+	pytor.minSourceLength = 200 
+
+	# Get source :)
 	print(pytor.getSource('http://thewebminer.com'))
 
 Privoxy configuration

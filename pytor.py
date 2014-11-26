@@ -5,13 +5,15 @@ import time
 from stem import Signal
 from stem.control import Controller
 
+# CONFIG
 showIp = True
-maxRetry = 99
-maxRequestsPerIP = 0 # 0 means disabled
+maxRetry = 10
+maxRequestsPerIP = 100 # 0 means disabled
 password = ''
 invalidStringList = []
-minSourceLength = 200
+minSourceLength = 200 # 0 means disabled
 
+#internal globals
 requestsNumber = 0
 changeID = 0
 
@@ -25,7 +27,7 @@ def newId():
 
 def isInvalid(source):
     global invalidStringList, minSourceLength
-    if len(source) < minSourceLength:
+    if minSourceLength != 0 and len(source) < minSourceLength:
         return True
     for string in invalidStringList:
         if string in source:
