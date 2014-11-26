@@ -1,7 +1,7 @@
 PyTor
 =========
 
-Python module for http requests by tor network. PyTor change automatically IP address when a string marker is detected in response to a request.  
+Python module for http requests by Tor network. PyTor change automatically IP address when a string marker is detected in response to a request.  
 
 Requirements
 =========
