@@ -34,6 +34,9 @@ Usage
 	# Show IP address at every request 
 	pytor.showIp = True
 
+	# Show output messages 
+	pytor.silent = False
+
 	# Get source :)
 	print(pytor.getSource('http://thewebminer.com'))
 
