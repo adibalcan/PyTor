@@ -7,6 +7,7 @@ from stem.control import Controller
 
 # CONFIG
 showIp = True
+silent = False
 maxRetry = 10
 maxRequestsPerIP = 100 # 0 means disabled
 password = ''
@@ -16,6 +17,11 @@ minSourceLength = 200 # 0 means disabled
 #internal globals
 requestsNumber = 0
 changeID = 0
+
+def output(str):
+    global silent
+    if not silent:
+        print(str)
 
 def newId():
     global changeID, password
@@ -62,7 +68,7 @@ def getSource(url):
     global requestsNumber, changeID, showIp, headers, proxies, maxRetry
         
     if maxRequestsPerIP != 0 and requestsNumber > maxRequestsPerIP:
-        print('GET NEW ID, BECAUSE HAS REACHED ', maxRequestsPerIP,' REQUESTS')
+        output('GET NEW ID, BECAUSE HAS REACHED ' + str(maxRequestsPerIP) + ' REQUESTS')
         try:
             if changeID == 1:
                 time.sleep(6)
@@ -73,14 +79,14 @@ def getSource(url):
             requestsNumber = 0
             time.sleep(1)
         except Exception as e:
-            print('Exception at proxy change')
+            output('Exception at proxy change')
 
     responseText = ''
     retry = 0
     while retry == 0 or internalInvalid(responseText) or isInvalid(responseText):
         try:
             if showIp:
-                print('IP address ', getIp())
+                output('IP address ' + getIp())
             if url.endswith('.gz'):
                 r = requests.get(url, headers = headers, proxies = proxies, stream = True)
                 responseText = r.raw.read()
@@ -93,16 +99,16 @@ def getSource(url):
             requestsNumber = requestsNumber + 1
             
         except Exception as e:
-            print('Exception at request send')
+            output('Exception at request send')
 
         internalInvalidFlag = False
         if internalInvalid(responseText):
-            print('RESPONSE IS INTERNAL INVALID')
+            output('RESPONSE IS INTERNAL INVALID')
             internalInvalidFlag = True
             time.sleep(6)
                
         if internalInvalidFlag == False and isInvalid(responseText):
-            print('RETRY WITH NEW ID, BECAUSE RESPONSE IS INVALID')
+            output('RETRY WITH NEW ID, BECAUSE RESPONSE IS INVALID')
             try:
                 if changeID == 1:
                     time.sleep(6)
@@ -112,11 +118,10 @@ def getSource(url):
 
                 requestsNumber = 0
             except Exception as e:
-                print('Exception at proxy change')
+                output('Exception at proxy change')
             time.sleep(1)
         if retry > maxRetry:
-            print('OVER MAX Retry')
+            output('OVER MAX Retry')
             break
-        retry = retry + 1
-          
+        retry = retry + 1         
     return responseText
