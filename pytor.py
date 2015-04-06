@@ -17,19 +17,19 @@ minSourceLength = 200 # 0 means disabled
 
 #internal globals
 requestsNumber = 0
-changeID = 0
+changeIDInPregress = False
 
 def output(str):
     if not silent:
         print(str)
 
 def newId():
-    global changeID
+    global changeIDInPregress
     with Controller.from_port(port = 9051) as controller:
         controller.authenticate(password = password)
         controller.signal(Signal.NEWNYM)
     time.sleep(3)
-    changeID = 0
+    changeIDInPregress = False
 
 def isInvalid(source):
     if minSourceLength != 0 and len(source) < minSourceLength:
@@ -63,15 +63,15 @@ def getIp():
     return r.text
 
 def getSource(url):
-    global requestsNumber, changeID
+    global requestsNumber, changeIDInPregress
         
     if maxRequestsPerIP != 0 and requestsNumber > maxRequestsPerIP:
         output('GET NEW ID, BECAUSE HAS REACHED ' + str(maxRequestsPerIP) + ' REQUESTS')
         try:
-            if changeID == 1:
+            if changeIDInPregress:
                 time.sleep(6)
             else:
-                changeID = 1
+                changeIDInPregress = True
                 newId()
 
             requestsNumber = 0
@@ -94,7 +94,7 @@ def getSource(url):
                 r = requests.get(url, headers = headers, proxies = proxies)
                 responseText = r.text
 
-            requestsNumber = requestsNumber + 1
+            requestsNumber += 1
             
         except Exception as e:
             output('Exception at request send')
@@ -108,10 +108,10 @@ def getSource(url):
         if internalInvalidFlag == False and isInvalid(responseText):
             output('RETRY WITH NEW ID, BECAUSE RESPONSE IS INVALID')
             try:
-                if changeID == 1:
+                if changeIDInPregress:
                     time.sleep(6)
                 else:
-                    changeID = 1
+                    changeIDInPregress = True
                     newId()
 
                 requestsNumber = 0
@@ -121,5 +121,5 @@ def getSource(url):
         if retry > maxRetry:
             output('OVER MAX Retry')
             break
-        retry = retry + 1         
+        retry += 1         
     return responseText
