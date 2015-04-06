@@ -1,6 +1,7 @@
 import requests
 import datetime
 import time
+import gzip
 
 from stem import Signal
 from stem.control import Controller
@@ -19,12 +20,11 @@ requestsNumber = 0
 changeID = 0
 
 def output(str):
-    global silent
     if not silent:
         print(str)
 
 def newId():
-    global changeID, password
+    global changeID
     with Controller.from_port(port = 9051) as controller:
         controller.authenticate(password = password)
         controller.signal(Signal.NEWNYM)
@@ -32,7 +32,6 @@ def newId():
     changeID = 0
 
 def isInvalid(source):
-    global invalidStringList, minSourceLength
     if minSourceLength != 0 and len(source) < minSourceLength:
         return True
     for string in invalidStringList:
@@ -60,12 +59,11 @@ headers = {
             }
 
 def getIp():
-    global headers, proxies
     r = requests.get('http://ifconfig.me/ip', headers = headers, proxies = proxies)
     return r.text
 
 def getSource(url):
-    global requestsNumber, changeID, showIp, headers, proxies, maxRetry
+    global requestsNumber, changeID
         
     if maxRequestsPerIP != 0 and requestsNumber > maxRequestsPerIP:
         output('GET NEW ID, BECAUSE HAS REACHED ' + str(maxRequestsPerIP) + ' REQUESTS')
