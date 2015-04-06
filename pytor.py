@@ -7,7 +7,7 @@ from stem import Signal
 from stem.control import Controller
 
 # CONFIG
-showIp = True
+showIp = False
 silent = False
 maxRetry = 10
 maxRequestsPerIP = 100 # 0 means disabled
