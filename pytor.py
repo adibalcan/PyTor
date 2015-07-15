@@ -62,7 +62,7 @@ def getIp():
     r = requests.get('http://ifconfig.me/ip', headers = headers, proxies = proxies)
     return r.text
 
-def getSource(url):
+def getSource(url, post=False, data={}):
     global requestsNumber, changeIDInPregress
         
     if maxRequestsPerIP != 0 and requestsNumber > maxRequestsPerIP:
@@ -91,9 +91,11 @@ def getSource(url):
                 responseText = gzip.decompress(responseText)
                 responseText = responseText.decode("utf-8")
             else:
-                r = requests.get(url, headers = headers, proxies = proxies)
+                if post:
+                    r = requests.post(url, headers = headers, proxies = proxies, data = data)
+                else:
+                    r = requests.get(url, headers = headers, proxies = proxies)
                 responseText = r.text
-
             requestsNumber += 1
             
         except Exception as e:

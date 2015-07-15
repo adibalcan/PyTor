@@ -1,6 +1,6 @@
 from distutils.core import setup
 setup(name='pytor',
-      version='1.6',
+      version='1.7',
       py_modules=['pytor'],
       install_requires=[
           'stem',
