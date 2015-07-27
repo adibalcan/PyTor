@@ -25,6 +25,7 @@ def output(str):
 
 def newId():
     global changeIDInPregress
+    changeIDInPregress = True
     with Controller.from_port(port = 9051) as controller:
         controller.authenticate(password = password)
         controller.signal(Signal.NEWNYM)
@@ -71,7 +72,6 @@ def getSource(url, post=False, data={}):
             if changeIDInPregress:
                 time.sleep(6)
             else:
-                changeIDInPregress = True
                 newId()
 
             requestsNumber = 0
@@ -113,7 +113,6 @@ def getSource(url, post=False, data={}):
                 if changeIDInPregress:
                     time.sleep(6)
                 else:
-                    changeIDInPregress = True
                     newId()
 
                 requestsNumber = 0
