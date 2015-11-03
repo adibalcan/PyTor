@@ -33,12 +33,16 @@ def newId():
     changeIDInPregress = False
 
 def isInvalid(source):
+    response = False
     if minSourceLength != 0 and len(source) < minSourceLength:
-        return True
+        response = True
     for string in invalidStringList:
         if string in source:
-            return True
-    return False
+            response = True
+            break
+    if response and silent:
+        output(source)
+    return response
 
 def internalInvalid(source):
     if 'Privoxy' in source:
