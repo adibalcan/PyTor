@@ -40,7 +40,7 @@ def isInvalid(source):
         if string in source:
             response = True
             break
-    if response and silent:
+    if response and not silent:
         output(source)
     return response
 
