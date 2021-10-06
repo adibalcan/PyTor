@@ -1,7 +1,8 @@
 PyTor
 =========
+PyTor is a wrapper for requests python module that injects and controls a proxy obtained from Tor network of from a proxy list.
 
-Python module for http requests by Tor network. PyTor change automatically IP address when a string marker is detected in response to a request.  
+PyTor change automatically the IP address and retry when a string marker is detected in response to a request.  
 
 Requirements
 =========
@@ -19,7 +20,24 @@ ATENTION: First install pip and git
 
 Usage
 =========
-	import pytor
+**The basic configuration**
+
+	from pytor import pytor
+
+	# Use here, password from tor configuration
+	pytor.password='YOURPASSWORD' 
+	
+	# Automatically change the IP address if one of those strings are met in http response
+	pytor.invalidStringList = ['Sorry, you\'re not allowed to access this page.', 'One more step']
+
+	# Get source :)
+	print(pytor.get('https://google.com').text)
+
+**The advanced configuration**
+
+You can add multiple options like in the following sample:
+
+	from pytor import pytor
 
 	# Use here, password from tor configuration
 	pytor.password='YOURPASSWORD' 
@@ -40,7 +58,7 @@ Usage
 	pytor.silent = False
 
 	# Get source :)
-	print(pytor.getSource('http://thewebminer.com'))
+	print(pytor.get('https://google.com').text)
 
 Privoxy configuration
 =========
