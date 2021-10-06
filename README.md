@@ -9,7 +9,8 @@ Tor,
 
 Privoxy 
 
-Below you will find how to configue each of them
+Below you will find how to configure each of them
+
 Installation
 =========
 ATENTION: First install pip and git
