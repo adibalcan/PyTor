@@ -47,6 +47,7 @@ class BehaviourInterface(metaclass=abc.ABCMeta):
             "http": "http",
             "https": "http" if urllibVersion and self.__versionTuple(urllibVersion) > self.__versionTuple("1.25.11") else "https"
         }
+        return schema
 
     @abc.abstractmethod
     def getProxy(self):
