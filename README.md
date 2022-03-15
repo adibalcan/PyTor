@@ -1,6 +1,6 @@
 PyTor
 =========
-PyTor is a wrapper for requests python module that injects and controls a proxy obtained from Tor network of from a proxy list.
+PyTor is a wrapper for requests python module that injects and controls a proxy obtained from Tor network or from a proxy list.
 
 PyTor change automatically the IP address and retry when a string marker is detected in response to a request.  
 
